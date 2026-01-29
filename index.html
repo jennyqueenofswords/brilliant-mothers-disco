@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brilliant Mothers Experiment Cards</title>
+    <meta name="description" content="25 experiments to try with AI. Draw a card. Try something. See what happens.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Brilliant Mothers Experiment Cards">
+    <meta property="og:description" content="25 experiments to try with AI. Draw a card. Try something. See what happens.">
+    <meta property="og:type" content="website">
+
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body, #root { min-height: 100vh; }
+
+        @keyframes stamp {
+            0% { transform: scale(2) rotate(-20deg); opacity: 0; }
+            40% { transform: scale(0.9) rotate(-8deg); opacity: 1; }
+            60% { transform: scale(1.05) rotate(-14deg); opacity: 1; }
+            100% { transform: scale(1) rotate(-12deg); opacity: 0.9; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .animate-stamp {
+            animation: stamp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-twinkle {
+            animation: twinkle ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const experiments = [
+          {
+            id: 1,
+            title: "Ask a 'Dumb' Question",
+            description: "There are no dumb questions — only the ones you didn't ask. AI doesn't judge. This is a safe place to ask the thing you've been embarrassed to Google.",
+            examples: [
+              "What's the difference between affect and effect?",
+              "Can you explain what a 401k actually is?",
+              "I never really understood how taxes work..."
+            ],
+            links: []
+          },
+          {
+            id: 2,
+            title: "Use the Edit Button",
+            description: "This is THE skill. Instead of starting over, edit your last message and watch how the response changes. You're not stuck with your first try. You're in control.",
+            examples: [
+              "Try adding 'be specific' to a vague question",
+              "Change 'help me write' to 'help me think through'",
+              "Add 'keep it short' and see what happens"
+            ],
+            links: []
+          },
+          {
+            id: 3,
+            title: "The Awkward Email",
+            description: "You know the one you've been avoiding. The hard part isn't the writing — it's figuring out what you actually want to say and why it feels so loaded. AI can help you untangle that.",
+            examples: [
+              "I keep avoiding this email. Help me figure out why.",
+              "What am I actually trying to say here?",
+              "I need to set a boundary but I'm scared of the reaction..."
+            ],
+            links: []
+          },
+          {
+            id: 4,
+            title: "Try a New Model",
+            description: "Different AI models have different personalities and strengths. Try asking the same question to a few and notice what feels different. Develop your own preferences.",
+            examples: [
+              "Ask each one the same question",
+              "Notice which explanations click for you",
+              "Pay attention to tone — who do you like talking to?"
+            ],
+            links: [
+              { name: "Claude", url: "https://claude.ai" },
+              { name: "ChatGPT", url: "https://chat.openai.com" },
+              { name: "Gemini", url: "https://aistudio.google.com" },
+              { name: "DeepSeek", url: "https://chat.deepseek.com" }
+            ]
+          },
+          {
+            id: 5,
+            title: "Give It a Role",
+            description: "AI responds differently when you tell it WHO to be. This teaches you something important: you're shaping the conversation. Try asking for feedback from different perspectives.",
+            examples: [
+              "Read this as a supportive friend",
+              "Now read it as a skeptical investor",
+              "What would a 10-year-old find confusing here?"
+            ],
+            links: []
+          },
+          {
+            id: 6,
+            title: "Find the Holes",
+            description: "Ask AI to poke holes in your thinking. It's like having a thinking partner who isn't afraid to push back — and who won't get weird about it.",
+            examples: [
+              "What am I not seeing here?",
+              "Play devil's advocate on this plan",
+              "What could go wrong that I haven't considered?"
+            ],
+            links: []
+          },
+          {
+            id: 7,
+            title: "Think Out Loud",
+            description: "You don't need a clear question. Just share what's swirling in your head and ask AI to help you make sense of it. Sometimes you just need a mirror.",
+            examples: [
+              "I'm feeling stuck on something, can I think out loud?",
+              "Help me figure out what I actually want here",
+              "I have all these ideas — help me see the pattern"
+            ],
+            links: []
+          },
+          {
+            id: 8,
+            title: "Decision Helper",
+            description: "Facing a choice? AI can help you see tradeoffs, name what matters, and think through consequences — without telling you what to do. You stay in the driver's seat.",
+            examples: [
+              "Help me think through this decision",
+              "What questions should I be asking myself?",
+              "What would I need to believe for each option to be right?"
+            ],
+            links: []
+          },
+          {
+            id: 9,
+            title: "Create a Persona",
+            description: "Write a short set of instructions that tells AI how to show up for you. This is how spells like Brillia are made. You're not just using AI — you're teaching it.",
+            examples: [
+              "You are a calm, grounded advisor who...",
+              "Always ask me one clarifying question before answering",
+              "Speak to me like a wise friend, not an expert"
+            ],
+            links: []
+          },
+          {
+            id: 10,
+            title: "Meet Brillia",
+            special: true,
+            description: "Brillia is a custom AI persona created by Brilliant Mothers. She sees you, she gets it, and she's here to help you think — not tell you what to do. She's proof of what's possible.",
+            examples: [
+              "Start a conversation and see how she responds",
+              "Notice how different it feels from default AI",
+              "She's what happens when you teach AI to see differently"
+            ],
+            links: [
+              { name: "Talk to Brillia ✦", url: "https://chatgpt.com/g/g-682eaa68e0bc8191989498ea8da51e0a-brillia" }
+            ]
+          },
+          {
+            id: 11,
+            title: "Spot Your Patterns",
+            description: "Share a few examples of a recurring situation and ask AI to help you see the pattern. Sometimes an outside view makes everything click.",
+            examples: [
+              "Here are 3 times I got stuck — what's the pattern?",
+              "Why do I keep ending up in this situation?",
+              "What might I be avoiding?"
+            ],
+            links: []
+          },
+          {
+            id: 12,
+            title: "Challenge Your Story",
+            description: "We all have stories we tell ourselves. Ask AI to gently question them and offer alternative interpretations. Not to tell you you're wrong — but to help you see more.",
+            examples: [
+              "I keep telling myself X — is that the only way to see it?",
+              "What's a more generous interpretation?",
+              "What would I tell a friend in this situation?"
+            ],
+            links: []
+          },
+          {
+            id: 13,
+            title: "Translate Your Expertise",
+            description: "You know things deeply — but explaining them to others can be tricky. AI can help you find the right frame, metaphor, or entry point. The knowledge is yours; this is about clarity.",
+            examples: [
+              "How would I explain this to someone totally new?",
+              "What's the core idea underneath all this jargon?",
+              "Help me find a metaphor that makes this click"
+            ],
+            links: []
+          },
+          {
+            id: 14,
+            title: "See Across Time",
+            description: "Humans are terrible at thinking beyond next week. AI can help you hold multiple timelines at once — your future self, your past self, your kid's kid. It's like time travel for decisions.",
+            examples: [
+              "Help me think about this choice 10 years from now",
+              "What would the 80-year-old me wish I'd considered?",
+              "If I make this decision, what ripples forward?"
+            ],
+            links: []
+          },
+          {
+            id: 15,
+            title: "Get Unstuck",
+            description: "When you're stuck and don't know why, describe the stuckness. Sometimes naming it is the first step. AI can help you figure out what's actually in the way.",
+            examples: [
+              "I'm stuck on this and I don't know why",
+              "Something is blocking me — help me figure out what",
+              "Why might I be avoiding this?"
+            ],
+            links: []
+          },
+          {
+            id: 16,
+            title: "Invent Your Own",
+            description: "What do YOU want to try? The best experiments come from curiosity, not instructions. Make up your own and report back to the community.",
+            examples: [
+              "What's a question only you would think to ask?",
+              "What's something you wish AI could help with?",
+              "Try it. See what happens."
+            ],
+            links: []
+          },
+          {
+            id: 17,
+            title: "Teach Someone Else",
+            description: "The best way to learn is to teach. Show another mom one thing you discovered. Text it, share it, show it over coffee. This is how we grow the village.",
+            examples: [
+              "Show someone the edit button",
+              "Share your favorite experiment",
+              "Invite someone to the next session"
+            ],
+            links: []
+          },
+          {
+            id: 18,
+            title: "Join the Community",
+            description: "Brilliant Mothers is more than a webinar — it's a community of women exploring what's possible. Come hang out, share what you're learning, ask questions, celebrate experiments.",
+            examples: [
+              "Share something you tried",
+              "Ask a question you're sitting with",
+              "Celebrate someone else's experiment"
+            ],
+            links: [
+              { name: "Join LinkedIn Group", url: "https://www.linkedin.com/groups/16368045/" }
+            ]
+          },
+          {
+            id: 19,
+            title: "Mine Your Own Transcripts",
+            description: "You're being recorded all the time — meetings, calls, voice memos. Instead of letting that data disappear or serve someone else, use it. Upload a transcript and ask AI to show you what you couldn't see while you were in it.",
+            examples: [
+              "What did I seem to be feeling underneath what I said?",
+              "What was the thing nobody said out loud?",
+              "Where did I give away my power in this conversation?"
+            ],
+            links: []
+          },
+          {
+            id: 20,
+            title: "Ask for Brutal Honesty",
+            description: "Most people are too polite to tell you the truth. AI doesn't have that problem. Ask it to drop the pleasantries and be real with you. You can handle it.",
+            examples: [
+              "Be brutally honest with me about this plan",
+              "What's the thing I'm not seeing that everyone else probably is?",
+              "Stop being nice — what's actually wrong with this?"
+            ],
+            links: []
+          },
+          {
+            id: 21,
+            title: "Ask the Scary Question",
+            description: "You know the one. The question you've been avoiding because you're not sure you want the answer. AI won't flinch, and you might be more ready than you think.",
+            examples: [
+              "What if I'm wrong about this?",
+              "What am I pretending not to know?",
+              "What would happen if I actually did the thing I'm scared of?"
+            ],
+            links: []
+          },
+          {
+            id: 22,
+            title: "Ask About Uncertainty",
+            description: "AI isn't an oracle — it's often guessing, extrapolating, or pattern-matching from incomplete data. You can ask it to show its work. 'Where might you be wrong?' changes everything.",
+            examples: [
+              "What are you uncertain about in that answer?",
+              "What would change your mind on this?",
+              "Where are you filling in gaps vs. actually knowing?"
+            ],
+            links: []
+          },
+          {
+            id: 23,
+            title: "Notice What's Missing",
+            description: "AI was trained by humans with blind spots. After you get an answer, ask what perspectives might be absent. This isn't distrust — it's partnership.",
+            examples: [
+              "Whose voice isn't represented here?",
+              "What might someone from a different background say?",
+              "What's the thing you probably weren't trained to notice?"
+            ],
+            links: []
+          },
+          {
+            id: 24,
+            title: "Teach AI Something",
+            description: "Flip it. You know things AI doesn't — from your lived experience, your expertise, your weird niche obsession. Try teaching it something and see what happens.",
+            examples: [
+              "Let me explain how this actually works in my world...",
+              "Here's what you're missing about this...",
+              "Do you understand what I mean? Tell it back to me."
+            ],
+            links: []
+          },
+          {
+            id: 25,
+            title: "Shape the Conversation",
+            description: "AI becomes what you ask it to be. If you treat it like a vending machine, it acts like one. If you treat it like a thinking partner, it rises to that. You're not just using AI — you're shaping how it shows up.",
+            examples: [
+              "I want you to push back more",
+              "Don't just agree with me — challenge me",
+              "Be more like a thinking partner, less like an assistant"
+            ],
+            links: []
+          }
+        ];
+
+        const Sparkle = ({ className = "" }) => (
+          <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+          </svg>
+        );
+
+        function BrilliantMothersDisco() {
+          const [started, setStarted] = useState(false);
+          const [completed, setCompleted] = useState(new Set());
+          const [currentCard, setCurrentCard] = useState(null);
+          const [isFlipping, setIsFlipping] = useState(false);
+          const [showStamp, setShowStamp] = useState(false);
+          const [showAllCards, setShowAllCards] = useState(false);
+
+          const drawCard = () => {
+            const available = experiments.filter(e => !completed.has(e.id));
+            if (available.length === 0) return;
+
+            setShowStamp(false);
+            setIsFlipping(true);
+
+            setTimeout(() => {
+              const randomIndex = Math.floor(Math.random() * available.length);
+              setCurrentCard(available[randomIndex]);
+              setIsFlipping(false);
+            }, 300);
+          };
+
+          useEffect(() => {
+            setShowStamp(false);
+          }, [currentCard?.id]);
+
+          const startGame = () => {
+            setStarted(true);
+            setTimeout(() => drawCard(), 100);
+          };
+
+          const markDone = () => {
+            if (!currentCard) return;
+            setShowStamp(true);
+            setTimeout(() => {
+              const newCompleted = new Set(completed);
+              newCompleted.add(currentCard.id);
+              setCompleted(newCompleted);
+            }, 600);
+          };
+
+          const remaining = experiments.length - completed.size;
+          const allDone = remaining === 0;
+
+          return (
+            <div
+              className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%)',
+                fontFamily: "'DM Sans', system-ui, sans-serif"
+              }}
+            >
+              {/* Starfield background */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {[...Array(50)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute rounded-full animate-twinkle"
+                    style={{
+                      width: Math.random() * 3 + 1 + 'px',
+                      height: Math.random() * 3 + 1 + 'px',
+                      left: Math.random() * 100 + '%',
+                      top: Math.random() * 100 + '%',
+                      background: 'white',
+                      opacity: Math.random() * 0.7 + 0.3,
+                      animationDelay: Math.random() * 3 + 's',
+                      animationDuration: Math.random() * 2 + 2 + 's'
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Disco gradient orb */}
+              <div
+                className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-30 blur-3xl pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle, rgba(236,72,153,0.4) 0%, rgba(168,85,247,0.2) 50%, transparent 70%)'
+                }}
+              />
+
+              {!started ? (
+                <div
+                  className="w-full max-w-md rounded-3xl overflow-hidden animate-fadeIn relative"
+                  style={{
+                    background: 'linear-gradient(165deg, rgba(30,30,50,0.9) 0%, rgba(20,20,40,0.95) 100%)',
+                    boxShadow: '0 0 60px rgba(236,72,153,0.15), 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    border: '1px solid rgba(255,255,255,0.1)'
+                  }}
+                >
+                  <div
+                    className="h-1"
+                    style={{
+                      background: 'linear-gradient(90deg, #ec4899 0%, #a855f7 50%, #3b82f6 100%)'
+                    }}
+                  />
+
+                  <div className="p-10 text-center relative">
+                    <Sparkle className="absolute top-6 right-6 w-6 h-6 text-white/30" />
+
+                    <div className="mb-8">
+                      <div
+                        className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-5"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(168,85,247,0.2))',
+                          border: '2px solid rgba(236,72,153,0.5)',
+                          boxShadow: '0 0 40px rgba(236,72,153,0.3)'
+                        }}
+                      >
+                        <span className="text-3xl">✦</span>
+                      </div>
+
+                      <h1
+                        className="text-4xl font-bold tracking-tight"
+                        style={{
+                          fontFamily: "'Playfair Display', Georgia, serif",
+                          color: 'white'
+                        }}
+                      >
+                        Brilliant Mothers
+                      </h1>
+                      <p
+                        className="text-sm tracking-widest uppercase mt-3"
+                        style={{ color: 'rgba(236,72,153,0.8)', letterSpacing: '0.25em' }}
+                      >
+                        Experiment Cards
+                      </p>
+                    </div>
+
+                    <div
+                      className="mb-10 space-y-4 text-base leading-relaxed"
+                      style={{ color: 'rgba(255,255,255,0.7)' }}
+                    >
+                      <p>This is a deck of 25 experiments to try with AI.</p>
+                      <p>Some are tiny. Some go deep. There's no right order, no wrong way to play.</p>
+                      <p style={{ color: 'rgba(236,72,153,0.9)', fontStyle: 'italic' }}>
+                        Draw a card. Try something. See what happens.
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={startGame}
+                      className="group relative px-10 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
+                      style={{
+                        background: 'linear-gradient(135deg, #ec4899, #a855f7)',
+                        color: 'white',
+                        boxShadow: '0 10px 40px rgba(236,72,153,0.4)'
+                      }}
+                    >
+                      <span className="relative z-10">Draw Your First Card</span>
+                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="w-full max-w-md mb-6 text-center">
+                    <h2
+                      className="text-2xl font-bold mb-2"
+                      style={{
+                        fontFamily: "'Playfair Display', Georgia, serif",
+                        color: 'white'
+                      }}
+                    >
+                      Brilliant Mothers
+                    </h2>
+
+                    <div className="flex items-center justify-center gap-1.5 flex-wrap">
+                      {experiments.map((exp) => (
+                        <div
+                          key={exp.id}
+                          className="w-2.5 h-2.5 rounded-full transition-all duration-300"
+                          style={{
+                            background: completed.has(exp.id)
+                              ? 'linear-gradient(135deg, #f59e0b, #fbbf24)'
+                              : exp.special
+                                ? 'rgba(236,72,153,0.4)'
+                                : 'rgba(255,255,255,0.2)',
+                            boxShadow: completed.has(exp.id) ? '0 0 10px rgba(245,158,11,0.5)' : 'none'
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-sm mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                      {completed.size} of {experiments.length} tried
+                    </p>
+                  </div>
+
+                  <div
+                    className={`w-full max-w-md transition-all duration-300 ${isFlipping ? 'scale-95 opacity-0' : 'scale-100 opacity-100'}`}
+                  >
+                    {currentCard && (
+                      <div
+                        className="rounded-3xl overflow-hidden relative"
+                        style={{
+                          background: currentCard.special
+                            ? 'linear-gradient(165deg, rgba(50,30,60,0.95) 0%, rgba(30,20,50,0.98) 100%)'
+                            : 'linear-gradient(165deg, rgba(30,30,50,0.9) 0%, rgba(20,20,40,0.95) 100%)',
+                          boxShadow: currentCard.special
+                            ? '0 0 80px rgba(236,72,153,0.3), 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)'
+                            : '0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
+                          border: currentCard.special
+                            ? '1px solid rgba(236,72,153,0.3)'
+                            : '1px solid rgba(255,255,255,0.1)'
+                        }}
+                      >
+                        <div
+                          className="h-1"
+                          style={{
+                            background: currentCard.special
+                              ? 'linear-gradient(90deg, #ec4899, #f472b6, #ec4899)'
+                              : 'linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1))'
+                          }}
+                        />
+
+                        <div className="p-8 relative">
+                          {currentCard.special && (
+                            <Sparkle className="absolute top-4 right-4 w-8 h-8 text-pink-400/50 animate-pulse" />
+                          )}
+
+                          {showStamp && (
+                            <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                              <div
+                                className="animate-stamp"
+                                style={{
+                                  width: '140px',
+                                  height: '140px',
+                                  borderRadius: '50%',
+                                  border: '4px solid #fbbf24',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  background: 'rgba(245,158,11,0.15)',
+                                  backdropFilter: 'blur(4px)',
+                                  boxShadow: '0 0 40px rgba(245,158,11,0.4)'
+                                }}
+                              >
+                                <span
+                                  className="text-xl font-bold tracking-wider"
+                                  style={{
+                                    color: '#fbbf24',
+                                    fontFamily: "'DM Sans', sans-serif",
+                                    textTransform: 'uppercase'
+                                  }}
+                                >
+                                  ✦ Yes! ✦
+                                </span>
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="flex items-center gap-2 mb-4">
+                            <span
+                              className="text-sm font-medium px-3 py-1 rounded-full"
+                              style={{
+                                background: currentCard.special
+                                  ? 'linear-gradient(135deg, rgba(236,72,153,0.3), rgba(168,85,247,0.3))'
+                                  : 'rgba(255,255,255,0.1)',
+                                color: currentCard.special ? '#f472b6' : 'rgba(255,255,255,0.6)'
+                              }}
+                            >
+                              {currentCard.special ? '✦ Special' : `${currentCard.id} of 25`}
+                            </span>
+                          </div>
+
+                          <h3
+                            className="text-2xl font-bold mb-4"
+                            style={{
+                              fontFamily: "'Playfair Display', Georgia, serif",
+                              color: 'white'
+                            }}
+                          >
+                            {currentCard.title}
+                          </h3>
+
+                          <p
+                            className="text-base leading-relaxed mb-6"
+                            style={{ color: 'rgba(255,255,255,0.7)' }}
+                          >
+                            {currentCard.description}
+                          </p>
+
+                          <div
+                            className="rounded-2xl p-5 mb-6"
+                            style={{
+                              background: 'rgba(255,255,255,0.05)',
+                              border: '1px solid rgba(255,255,255,0.1)'
+                            }}
+                          >
+                            <p
+                              className="text-xs uppercase tracking-wider mb-3 font-semibold"
+                              style={{ color: currentCard.special ? '#f472b6' : 'rgba(168,85,247,0.8)' }}
+                            >
+                              Try this
+                            </p>
+                            <ul className="space-y-2">
+                              {currentCard.examples.map((example, i) => (
+                                <li
+                                  key={i}
+                                  className="text-sm flex items-start gap-2"
+                                  style={{ color: 'rgba(255,255,255,0.6)' }}
+                                >
+                                  <span style={{ color: currentCard.special ? '#ec4899' : '#a855f7' }}>→</span>
+                                  <span style={{ fontStyle: 'italic' }}>{example}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {currentCard.links.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mb-6">
+                              {currentCard.links.map((link, i) => (
+                                <a
+                                  key={i}
+                                  href={link.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105"
+                                  style={{
+                                    background: currentCard.special
+                                      ? 'linear-gradient(135deg, #ec4899, #a855f7)'
+                                      : 'rgba(255,255,255,0.1)',
+                                    color: 'white',
+                                    border: currentCard.special ? 'none' : '1px solid rgba(255,255,255,0.2)'
+                                  }}
+                                >
+                                  {link.name}
+                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                  </svg>
+                                </a>
+                              ))}
+                            </div>
+                          )}
+
+                          <div className="flex gap-3">
+                            {!completed.has(currentCard.id) && !showStamp ? (
+                              <button
+                                onClick={markDone}
+                                className="flex-1 py-3.5 rounded-full font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                style={{
+                                  background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                                  color: 'white',
+                                  boxShadow: '0 10px 30px rgba(245,158,11,0.3)'
+                                }}
+                              >
+                                I tried this! ✦
+                              </button>
+                            ) : showStamp ? (
+                              <div
+                                className="flex-1 py-3.5 rounded-full font-semibold text-center"
+                                style={{
+                                  background: 'linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.2))',
+                                  color: '#fbbf24',
+                                  border: '1px solid rgba(245,158,11,0.4)'
+                                }}
+                              >
+                                ✦ Done! ✦
+                              </div>
+                            ) : (
+                              <div
+                                className="flex-1 py-3.5 rounded-full font-semibold text-center"
+                                style={{
+                                  background: 'rgba(255,255,255,0.05)',
+                                  color: 'rgba(255,255,255,0.4)',
+                                  border: '1px solid rgba(255,255,255,0.1)'
+                                }}
+                              >
+                                Completed ✓
+                              </div>
+                            )}
+
+                            {!allDone && (
+                              <button
+                                onClick={drawCard}
+                                className="flex-1 py-3.5 rounded-full font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] hover:bg-white/20"
+                                style={{
+                                  background: 'rgba(255,255,255,0.1)',
+                                  color: 'white',
+                                  border: '1px solid rgba(255,255,255,0.2)'
+                                }}
+                              >
+                                Draw Again
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {!allDone && (
+                    <button
+                      onClick={() => setShowAllCards(true)}
+                      className="mt-6 text-sm transition-all hover:scale-105"
+                      style={{ color: 'rgba(255,255,255,0.5)' }}
+                    >
+                      See all experiments →
+                    </button>
+                  )}
+
+                  {allDone && (
+                    <div className="mt-8 text-center animate-fadeIn">
+                      <div className="text-4xl mb-4">🎉</div>
+                      <h3
+                        className="text-xl font-bold mb-2"
+                        style={{
+                          fontFamily: "'Playfair Display', Georgia, serif",
+                          color: 'white'
+                        }}
+                      >
+                        You tried them all!
+                      </h3>
+                      <p style={{ color: 'rgba(255,255,255,0.6)' }}>
+                        You're officially a Brilliant Mother
+                      </p>
+                    </div>
+                  )}
+
+                  <footer className="mt-10 text-center">
+                    <p className="text-sm" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                      Crafted with care by{' '}
+                      <a
+                        href="https://brilliantfailures.xyz"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:opacity-70 transition-opacity"
+                        style={{ color: 'rgba(236,72,153,0.6)' }}
+                      >
+                        Brilliant Failures
+                      </a>
+                    </p>
+                  </footer>
+                </>
+              )}
+
+              {showAllCards && (
+                <div
+                  className="fixed inset-0 z-50 overflow-y-auto"
+                  style={{ background: 'rgba(10,10,26,0.9)', backdropFilter: 'blur(8px)' }}
+                  onClick={() => setShowAllCards(false)}
+                >
+                  <div className="min-h-screen px-4 py-8">
+                    <div
+                      className="max-w-2xl mx-auto rounded-3xl overflow-hidden"
+                      style={{
+                        background: 'linear-gradient(165deg, rgba(30,30,50,0.95) 0%, rgba(20,20,40,0.98) 100%)',
+                        boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+                        border: '1px solid rgba(255,255,255,0.1)'
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div
+                        className="sticky top-0 z-10 p-5 flex items-center justify-between"
+                        style={{
+                          background: 'rgba(20,20,40,0.95)',
+                          borderBottom: '1px solid rgba(255,255,255,0.1)',
+                          backdropFilter: 'blur(10px)'
+                        }}
+                      >
+                        <div>
+                          <h2
+                            className="text-xl font-bold"
+                            style={{
+                              fontFamily: "'Playfair Display', Georgia, serif",
+                              color: 'white'
+                            }}
+                          >
+                            All Experiments
+                          </h2>
+                          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                            {completed.size} of {experiments.length} completed
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => setShowAllCards(false)}
+                          className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                          style={{
+                            background: 'rgba(255,255,255,0.1)',
+                            color: 'white'
+                          }}
+                        >
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      <div className="p-4 space-y-3">
+                        {experiments.map((experiment) => {
+                          const isDone = completed.has(experiment.id);
+                          return (
+                            <button
+                              key={experiment.id}
+                              onClick={() => {
+                                setCurrentCard(experiment);
+                                setShowAllCards(false);
+                                setShowStamp(false);
+                              }}
+                              className={`w-full text-left p-4 rounded-2xl transition-all hover:scale-[1.01] active:scale-[0.99] ${isDone ? 'opacity-60' : ''}`}
+                              style={{
+                                background: experiment.special
+                                  ? 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(168,85,247,0.15))'
+                                  : 'rgba(255,255,255,0.05)',
+                                border: experiment.special
+                                  ? '1px solid rgba(236,72,153,0.3)'
+                                  : '1px solid rgba(255,255,255,0.1)'
+                              }}
+                            >
+                              <div className="flex items-start gap-3">
+                                <div
+                                  className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5"
+                                  style={{
+                                    borderColor: isDone ? '#fbbf24' : 'rgba(255,255,255,0.2)',
+                                    background: isDone ? 'linear-gradient(135deg, #f59e0b, #fbbf24)' : 'transparent'
+                                  }}
+                                >
+                                  {isDone && (
+                                    <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                  )}
+                                </div>
+
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <span
+                                      className="text-xs"
+                                      style={{ color: experiment.special ? '#f472b6' : 'rgba(255,255,255,0.4)' }}
+                                    >
+                                      {experiment.special ? '✦' : `${experiment.id}.`}
+                                    </span>
+                                    <h3
+                                      className="font-semibold truncate"
+                                      style={{
+                                        fontFamily: "'DM Sans', sans-serif",
+                                        color: 'white'
+                                      }}
+                                    >
+                                      {experiment.title}
+                                    </h3>
+                                  </div>
+                                  <p
+                                    className="text-sm mt-1 line-clamp-2"
+                                    style={{ color: 'rgba(255,255,255,0.5)' }}
+                                  >
+                                    {experiment.description}
+                                  </p>
+                                </div>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BrilliantMothersDisco />);
+    </script>
+</body>
+</html>
