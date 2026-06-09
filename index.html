@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queen of Swords Experiment Cards</title>
+    <title>Brilliant Mothers Experiment Cards</title>
     <meta name="description" content="25 experiments to try with AI. Draw a card. Try something. See what happens.">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Queen of Swords Experiment Cards">
+    <meta property="og:title" content="Brilliant Mothers Experiment Cards">
     <meta property="og:description" content="25 experiments to try with AI. Draw a card. Try something. See what happens.">
     <meta property="og:type" content="website">
 
@@ -22,41 +22,11 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Parafina Medium — Large optical size (headlines) */
-        @font-face {
-            font-family: 'Parafina';
-            src: url('./fonts/Parafina-MediumL.woff2') format('woff2'),
-                 url('./fonts/Parafina-MediumL.woff') format('woff');
-            font-weight: 500;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        /* Parafina Medium — Medium optical size (card titles) */
-        @font-face {
-            font-family: 'Parafina-Medium';
-            src: url('./fonts/Parafina-MediumM.woff2') format('woff2'),
-                 url('./fonts/Parafina-MediumM.woff') format('woff');
-            font-weight: 500;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        :root {
-            --aether: #F5F5F5;
-            --void: #000000;
-            --vision: #6420E5;
-            --pulse: #EF4C31;
-            --sanctuary: #859148;
-            --outlier: #FE63D9;
-            --clarity: #549BA0;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body, #root { min-height: 100vh; background: #000; }
+        html, body, #root { min-height: 100vh; }
 
         @keyframes stamp {
             0% { transform: scale(2) rotate(-20deg); opacity: 0; }
@@ -203,7 +173,7 @@
             id: 10,
             title: "Meet Brillia",
             special: true,
-            description: "Brillia is a custom AI persona created by Queen of Swords. She sees you, she gets it, and she's here to help you think — not tell you what to do. She's proof of what's possible.",
+            description: "Brillia is a custom AI persona created by Brilliant Mothers. She sees you, she gets it, and she's here to help you think — not tell you what to do. She's proof of what's possible.",
             examples: [
               "Start a conversation and see how she responds",
               "Notice how different it feels from default AI",
@@ -282,7 +252,7 @@
           {
             id: 17,
             title: "Teach Someone Else",
-            description: "The best way to learn is to teach. Show someone else one thing you discovered. Text it, share it, show it over coffee. This is how we grow the village.",
+            description: "The best way to learn is to teach. Show another mom one thing you discovered. Text it, share it, show it over coffee. This is how we grow the village.",
             examples: [
               "Show someone the edit button",
               "Share your favorite experiment",
@@ -293,7 +263,7 @@
           {
             id: 18,
             title: "Join the Community",
-            description: "Queen of Swords is more than a deck of cards — it's a community of people exploring what's possible. Come hang out, share what you're learning, ask questions, celebrate experiments.",
+            description: "Brilliant Mothers is more than a webinar — it's a community of women exploring what's possible. Come hang out, share what you're learning, ask questions, celebrate experiments.",
             examples: [
               "Share something you tried",
               "Ask a question you're sitting with",
@@ -382,22 +352,13 @@
           }
         ];
 
-        const Sparkle = ({ className = "", style }) => (
-          <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor">
+        const Sparkle = ({ className = "" }) => (
+          <svg className={className} viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
           </svg>
         );
 
-        // The Magician — eye with star pupil, from the QOS pictogram system
-        const Eye = ({ className = "", style }) => (
-          <svg className={className} style={style} viewBox="0 0 48 28" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M2 14 C 10 4, 38 4, 46 14 C 38 24, 10 24, 2 14 Z" />
-            <circle cx="24" cy="14" r="6.5" />
-            <path d="M24 9.5 L25.2 12.8 L28.5 14 L25.2 15.2 L24 18.5 L22.8 15.2 L19.5 14 L22.8 12.8 Z" fill="currentColor" stroke="none" />
-          </svg>
-        );
-
-        function QueenOfSwordsDeck() {
+        function BrilliantMothersDisco() {
           const [started, setStarted] = useState(false);
           const [completed, setCompleted] = useState(new Set());
           const [currentCard, setCurrentCard] = useState(null);
@@ -423,11 +384,6 @@
             setShowStamp(false);
           }, [currentCard?.id]);
 
-          // #draw deep link — skip the cover and land on a card
-          useEffect(() => {
-            if (window.location.hash === '#draw') startGame();
-          }, []);
-
           const startGame = () => {
             setStarted(true);
             setTimeout(() => drawCard(), 100);
@@ -450,22 +406,22 @@
             <div
               className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden"
               style={{
-                background: 'radial-gradient(ellipse at 50% 30%, #0c0618 0%, #000000 65%)',
-                fontFamily: "'DM Mono', ui-monospace, monospace"
+                background: 'linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%)',
+                fontFamily: "'DM Sans', system-ui, sans-serif"
               }}
             >
-              {/* Constellation field — aether dots, the occasional vision diamond, a rare pulse */}
+              {/* Starfield background */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {[...Array(50)].map((_, i) => (
                   <div
                     key={i}
-                    className={`absolute animate-twinkle ${i % 7 === 0 ? 'rotate-45' : 'rounded-full'}`}
+                    className="absolute rounded-full animate-twinkle"
                     style={{
                       width: Math.random() * 3 + 1 + 'px',
                       height: Math.random() * 3 + 1 + 'px',
                       left: Math.random() * 100 + '%',
                       top: Math.random() * 100 + '%',
-                      background: i % 7 === 0 ? '#6420E5' : i % 11 === 0 ? '#EF4C31' : '#F5F5F5',
+                      background: 'white',
                       opacity: Math.random() * 0.7 + 0.3,
                       animationDelay: Math.random() * 3 + 's',
                       animationDuration: Math.random() * 2 + 2 + 's'
@@ -474,84 +430,84 @@
                 ))}
               </div>
 
-              {/* Vision haze */}
+              {/* Disco gradient orb */}
               <div
-                className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-25 blur-3xl pointer-events-none"
+                className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-30 blur-3xl pointer-events-none"
                 style={{
-                  background: 'radial-gradient(circle, rgba(100,32,229,0.5) 0%, rgba(100,32,229,0.15) 50%, transparent 70%)'
+                  background: 'radial-gradient(circle, rgba(236,72,153,0.4) 0%, rgba(168,85,247,0.2) 50%, transparent 70%)'
                 }}
               />
 
               {!started ? (
                 <div
-                  className="w-full max-w-md overflow-hidden animate-fadeIn relative"
+                  className="w-full max-w-md rounded-3xl overflow-hidden animate-fadeIn relative"
                   style={{
-                    borderRadius: '12px',
-                    background: 'linear-gradient(165deg, rgba(18,12,30,0.92) 0%, rgba(5,3,10,0.96) 100%)',
-                    boxShadow: '0 0 60px rgba(100,32,229,0.18), 0 25px 50px rgba(0,0,0,0.7)',
-                    border: '1px solid rgba(245,245,245,0.15)'
+                    background: 'linear-gradient(165deg, rgba(30,30,50,0.9) 0%, rgba(20,20,40,0.95) 100%)',
+                    boxShadow: '0 0 60px rgba(236,72,153,0.15), 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    border: '1px solid rgba(255,255,255,0.1)'
                   }}
                 >
-                  {/* inner tarot frame */}
-                  <div className="absolute inset-2 pointer-events-none" style={{ border: '1px solid rgba(245,245,245,0.08)', borderRadius: '8px' }} />
-
-                  <div className="relative h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(100,32,229,0.9), transparent)' }}>
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rotate-45" style={{ background: '#6420E5', boxShadow: '0 0 8px rgba(100,32,229,0.8)' }} />
-                  </div>
+                  <div
+                    className="h-1"
+                    style={{
+                      background: 'linear-gradient(90deg, #ec4899 0%, #a855f7 50%, #3b82f6 100%)'
+                    }}
+                  />
 
                   <div className="p-10 text-center relative">
-                    <Sparkle className="absolute top-6 right-6 w-5 h-5" style={{ color: 'rgba(245,245,245,0.25)' }} />
+                    <Sparkle className="absolute top-6 right-6 w-6 h-6 text-white/30" />
 
                     <div className="mb-8">
                       <div
-                        className="inline-flex items-center justify-center w-24 h-16 mb-6"
-                        style={{ color: '#F5F5F5' }}
+                        className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-5"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(236,72,153,0.2), rgba(168,85,247,0.2))',
+                          border: '2px solid rgba(236,72,153,0.5)',
+                          boxShadow: '0 0 40px rgba(236,72,153,0.3)'
+                        }}
                       >
-                        <Eye className="w-20 h-12" style={{ filter: 'drop-shadow(0 0 14px rgba(100,32,229,0.7))' }} />
+                        <span className="text-3xl">✦</span>
                       </div>
 
                       <h1
-                        className="text-5xl tracking-tight"
+                        className="text-4xl font-bold tracking-tight"
                         style={{
-                          fontFamily: "'Parafina', Georgia, serif",
-                          fontWeight: 500,
-                          color: '#F5F5F5'
+                          fontFamily: "'Playfair Display', Georgia, serif",
+                          color: 'white'
                         }}
                       >
-                        Queen of Swords
+                        Brilliant Mothers
                       </h1>
                       <p
-                        className="text-xs uppercase mt-4"
-                        style={{ color: '#549BA0', letterSpacing: '0.35em' }}
+                        className="text-sm tracking-widest uppercase mt-3"
+                        style={{ color: 'rgba(236,72,153,0.8)', letterSpacing: '0.25em' }}
                       >
                         Experiment Cards
                       </p>
                     </div>
 
                     <div
-                      className="mb-10 space-y-4 text-sm leading-relaxed"
-                      style={{ color: 'rgba(245,245,245,0.65)' }}
+                      className="mb-10 space-y-4 text-base leading-relaxed"
+                      style={{ color: 'rgba(255,255,255,0.7)' }}
                     >
                       <p>This is a deck of 25 experiments to try with AI.</p>
                       <p>Some are tiny. Some go deep. There's no right order, no wrong way to play.</p>
-                      <p style={{ color: '#FE63D9', fontStyle: 'italic' }}>
+                      <p style={{ color: 'rgba(236,72,153,0.9)', fontStyle: 'italic' }}>
                         Draw a card. Try something. See what happens.
                       </p>
                     </div>
 
                     <button
                       onClick={startGame}
-                      className="group relative px-10 py-4 text-sm uppercase overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
+                      className="group relative px-10 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
                       style={{
-                        borderRadius: '2px',
-                        background: '#6420E5',
-                        color: '#F5F5F5',
-                        letterSpacing: '0.15em',
-                        boxShadow: '0 10px 40px rgba(100,32,229,0.45)'
+                        background: 'linear-gradient(135deg, #ec4899, #a855f7)',
+                        color: 'white',
+                        boxShadow: '0 10px 40px rgba(236,72,153,0.4)'
                       }}
                     >
                       <span className="relative z-10">Draw Your First Card</span>
-                      <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     </button>
                   </div>
                 </div>
@@ -559,33 +515,32 @@
                 <>
                   <div className="w-full max-w-md mb-6 text-center">
                     <h2
-                      className="text-3xl mb-3"
+                      className="text-2xl font-bold mb-2"
                       style={{
-                        fontFamily: "'Parafina', Georgia, serif",
-                        fontWeight: 500,
-                        color: '#F5F5F5'
+                        fontFamily: "'Playfair Display', Georgia, serif",
+                        color: 'white'
                       }}
                     >
-                      Queen of Swords
+                      Brilliant Mothers
                     </h2>
 
-                    <div className="flex items-center justify-center gap-2 flex-wrap">
+                    <div className="flex items-center justify-center gap-1.5 flex-wrap">
                       {experiments.map((exp) => (
                         <div
                           key={exp.id}
-                          className="w-2 h-2 rotate-45 transition-all duration-300"
+                          className="w-2.5 h-2.5 rounded-full transition-all duration-300"
                           style={{
                             background: completed.has(exp.id)
-                              ? '#EF4C31'
+                              ? 'linear-gradient(135deg, #f59e0b, #fbbf24)'
                               : exp.special
-                                ? 'rgba(254,99,217,0.5)'
-                                : 'rgba(245,245,245,0.18)',
-                            boxShadow: completed.has(exp.id) ? '0 0 10px rgba(239,76,49,0.6)' : 'none'
+                                ? 'rgba(236,72,153,0.4)'
+                                : 'rgba(255,255,255,0.2)',
+                            boxShadow: completed.has(exp.id) ? '0 0 10px rgba(245,158,11,0.5)' : 'none'
                           }}
                         />
                       ))}
                     </div>
-                    <p className="text-xs uppercase mt-3" style={{ color: 'rgba(245,245,245,0.45)', letterSpacing: '0.2em' }}>
+                    <p className="text-sm mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
                       {completed.size} of {experiments.length} tried
                     </p>
                   </div>
@@ -595,43 +550,31 @@
                   >
                     {currentCard && (
                       <div
-                        className="overflow-hidden relative"
+                        className="rounded-3xl overflow-hidden relative"
                         style={{
-                          borderRadius: '12px',
                           background: currentCard.special
-                            ? 'linear-gradient(165deg, rgba(40,12,34,0.95) 0%, rgba(10,3,12,0.98) 100%)'
-                            : 'linear-gradient(165deg, rgba(18,12,30,0.92) 0%, rgba(5,3,10,0.96) 100%)',
+                            ? 'linear-gradient(165deg, rgba(50,30,60,0.95) 0%, rgba(30,20,50,0.98) 100%)'
+                            : 'linear-gradient(165deg, rgba(30,30,50,0.9) 0%, rgba(20,20,40,0.95) 100%)',
                           boxShadow: currentCard.special
-                            ? '0 0 80px rgba(254,99,217,0.25), 0 25px 50px rgba(0,0,0,0.7)'
-                            : '0 0 50px rgba(100,32,229,0.12), 0 25px 50px rgba(0,0,0,0.7)',
+                            ? '0 0 80px rgba(236,72,153,0.3), 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)'
+                            : '0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
                           border: currentCard.special
-                            ? '1px solid rgba(254,99,217,0.35)'
-                            : '1px solid rgba(245,245,245,0.15)'
+                            ? '1px solid rgba(236,72,153,0.3)'
+                            : '1px solid rgba(255,255,255,0.1)'
                         }}
                       >
-                        {/* inner tarot frame */}
-                        <div className="absolute inset-2 pointer-events-none z-10" style={{ border: currentCard.special ? '1px solid rgba(254,99,217,0.12)' : '1px solid rgba(245,245,245,0.08)', borderRadius: '8px' }} />
-
                         <div
-                          className="relative h-px"
+                          className="h-1"
                           style={{
                             background: currentCard.special
-                              ? 'linear-gradient(90deg, transparent, rgba(254,99,217,0.9), transparent)'
-                              : 'linear-gradient(90deg, transparent, rgba(100,32,229,0.9), transparent)'
+                              ? 'linear-gradient(90deg, #ec4899, #f472b6, #ec4899)'
+                              : 'linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1))'
                           }}
-                        >
-                          <div
-                            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rotate-45"
-                            style={{
-                              background: currentCard.special ? '#FE63D9' : '#6420E5',
-                              boxShadow: currentCard.special ? '0 0 8px rgba(254,99,217,0.8)' : '0 0 8px rgba(100,32,229,0.8)'
-                            }}
-                          />
-                        </div>
+                        />
 
                         <div className="p-8 relative">
                           {currentCard.special && (
-                            <Sparkle className="absolute top-4 right-4 w-7 h-7 animate-pulse" style={{ color: 'rgba(254,99,217,0.5)' }} />
+                            <Sparkle className="absolute top-4 right-4 w-8 h-8 text-pink-400/50 animate-pulse" />
                           )}
 
                           {showStamp && (
@@ -642,20 +585,20 @@
                                   width: '140px',
                                   height: '140px',
                                   borderRadius: '50%',
-                                  border: '4px solid #EF4C31',
+                                  border: '4px solid #fbbf24',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: 'rgba(239,76,49,0.12)',
+                                  background: 'rgba(245,158,11,0.15)',
                                   backdropFilter: 'blur(4px)',
-                                  boxShadow: '0 0 40px rgba(239,76,49,0.45)'
+                                  boxShadow: '0 0 40px rgba(245,158,11,0.4)'
                                 }}
                               >
                                 <span
                                   className="text-xl font-bold tracking-wider"
                                   style={{
-                                    color: '#EF4C31',
-                                    fontFamily: "'DM Mono', monospace",
+                                    color: '#fbbf24',
+                                    fontFamily: "'DM Sans', sans-serif",
                                     textTransform: 'uppercase'
                                   }}
                                 >
@@ -667,15 +610,12 @@
 
                           <div className="flex items-center gap-2 mb-4">
                             <span
-                              className="text-xs uppercase px-3 py-1"
+                              className="text-sm font-medium px-3 py-1 rounded-full"
                               style={{
-                                borderRadius: '2px',
-                                letterSpacing: '0.15em',
-                                background: 'transparent',
-                                border: currentCard.special
-                                  ? '1px solid rgba(254,99,217,0.5)'
-                                  : '1px solid rgba(245,245,245,0.2)',
-                                color: currentCard.special ? '#FE63D9' : 'rgba(245,245,245,0.55)'
+                                background: currentCard.special
+                                  ? 'linear-gradient(135deg, rgba(236,72,153,0.3), rgba(168,85,247,0.3))'
+                                  : 'rgba(255,255,255,0.1)',
+                                color: currentCard.special ? '#f472b6' : 'rgba(255,255,255,0.6)'
                               }}
                             >
                               {currentCard.special ? '✦ Special' : `${currentCard.id} of 25`}
@@ -683,34 +623,32 @@
                           </div>
 
                           <h3
-                            className="text-3xl mb-4"
+                            className="text-2xl font-bold mb-4"
                             style={{
-                              fontFamily: "'Parafina-Medium', Georgia, serif",
-                              fontWeight: 500,
-                              color: '#F5F5F5'
+                              fontFamily: "'Playfair Display', Georgia, serif",
+                              color: 'white'
                             }}
                           >
                             {currentCard.title}
                           </h3>
 
                           <p
-                            className="text-sm leading-relaxed mb-6"
-                            style={{ color: 'rgba(245,245,245,0.65)' }}
+                            className="text-base leading-relaxed mb-6"
+                            style={{ color: 'rgba(255,255,255,0.7)' }}
                           >
                             {currentCard.description}
                           </p>
 
                           <div
-                            className="p-5 mb-6"
+                            className="rounded-2xl p-5 mb-6"
                             style={{
-                              borderRadius: '4px',
-                              background: 'rgba(245,245,245,0.04)',
-                              border: '1px solid rgba(245,245,245,0.1)'
+                              background: 'rgba(255,255,255,0.05)',
+                              border: '1px solid rgba(255,255,255,0.1)'
                             }}
                           >
                             <p
-                              className="text-xs uppercase mb-3"
-                              style={{ color: currentCard.special ? '#FE63D9' : '#549BA0', letterSpacing: '0.2em' }}
+                              className="text-xs uppercase tracking-wider mb-3 font-semibold"
+                              style={{ color: currentCard.special ? '#f472b6' : 'rgba(168,85,247,0.8)' }}
                             >
                               Try this
                             </p>
@@ -719,9 +657,9 @@
                                 <li
                                   key={i}
                                   className="text-sm flex items-start gap-2"
-                                  style={{ color: 'rgba(245,245,245,0.6)' }}
+                                  style={{ color: 'rgba(255,255,255,0.6)' }}
                                 >
-                                  <span style={{ color: currentCard.special ? '#FE63D9' : '#EF4C31' }}>→</span>
+                                  <span style={{ color: currentCard.special ? '#ec4899' : '#a855f7' }}>→</span>
                                   <span style={{ fontStyle: 'italic' }}>{example}</span>
                                 </li>
                               ))}
@@ -736,14 +674,13 @@
                                   href={link.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-4 py-2 text-sm transition-all hover:scale-105"
+                                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105"
                                   style={{
-                                    borderRadius: '2px',
                                     background: currentCard.special
-                                      ? '#FE63D9'
-                                      : 'rgba(245,245,245,0.08)',
-                                    color: currentCard.special ? '#000000' : '#F5F5F5',
-                                    border: currentCard.special ? 'none' : '1px solid rgba(245,245,245,0.2)'
+                                      ? 'linear-gradient(135deg, #ec4899, #a855f7)'
+                                      : 'rgba(255,255,255,0.1)',
+                                    color: 'white',
+                                    border: currentCard.special ? 'none' : '1px solid rgba(255,255,255,0.2)'
                                   }}
                                 >
                                   {link.name}
@@ -759,39 +696,33 @@
                             {!completed.has(currentCard.id) && !showStamp ? (
                               <button
                                 onClick={markDone}
-                                className="flex-1 py-3.5 text-sm uppercase transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                className="flex-1 py-3.5 rounded-full font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
                                 style={{
-                                  borderRadius: '2px',
-                                  letterSpacing: '0.1em',
-                                  background: '#EF4C31',
-                                  color: '#F5F5F5',
-                                  boxShadow: '0 10px 30px rgba(239,76,49,0.3)'
+                                  background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                                  color: 'white',
+                                  boxShadow: '0 10px 30px rgba(245,158,11,0.3)'
                                 }}
                               >
                                 I tried this! ✦
                               </button>
                             ) : showStamp ? (
                               <div
-                                className="flex-1 py-3.5 text-sm uppercase text-center"
+                                className="flex-1 py-3.5 rounded-full font-semibold text-center"
                                 style={{
-                                  borderRadius: '2px',
-                                  letterSpacing: '0.1em',
-                                  background: 'rgba(239,76,49,0.12)',
-                                  color: '#EF4C31',
-                                  border: '1px solid rgba(239,76,49,0.4)'
+                                  background: 'linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.2))',
+                                  color: '#fbbf24',
+                                  border: '1px solid rgba(245,158,11,0.4)'
                                 }}
                               >
                                 ✦ Done! ✦
                               </div>
                             ) : (
                               <div
-                                className="flex-1 py-3.5 text-sm uppercase text-center"
+                                className="flex-1 py-3.5 rounded-full font-semibold text-center"
                                 style={{
-                                  borderRadius: '2px',
-                                  letterSpacing: '0.1em',
-                                  background: 'rgba(245,245,245,0.04)',
-                                  color: 'rgba(245,245,245,0.4)',
-                                  border: '1px solid rgba(245,245,245,0.1)'
+                                  background: 'rgba(255,255,255,0.05)',
+                                  color: 'rgba(255,255,255,0.4)',
+                                  border: '1px solid rgba(255,255,255,0.1)'
                                 }}
                               >
                                 Completed ✓
@@ -801,13 +732,11 @@
                             {!allDone && (
                               <button
                                 onClick={drawCard}
-                                className="flex-1 py-3.5 text-sm uppercase transition-all hover:scale-[1.02] active:scale-[0.98] hover:bg-white/10"
+                                className="flex-1 py-3.5 rounded-full font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] hover:bg-white/20"
                                 style={{
-                                  borderRadius: '2px',
-                                  letterSpacing: '0.1em',
-                                  background: 'transparent',
-                                  color: '#F5F5F5',
-                                  border: '1px solid rgba(245,245,245,0.25)'
+                                  background: 'rgba(255,255,255,0.1)',
+                                  color: 'white',
+                                  border: '1px solid rgba(255,255,255,0.2)'
                                 }}
                               >
                                 Draw Again
@@ -822,8 +751,8 @@
                   {!allDone && (
                     <button
                       onClick={() => setShowAllCards(true)}
-                      className="mt-6 text-xs uppercase transition-all hover:scale-105"
-                      style={{ color: 'rgba(245,245,245,0.45)', letterSpacing: '0.15em' }}
+                      className="mt-6 text-sm transition-all hover:scale-105"
+                      style={{ color: 'rgba(255,255,255,0.5)' }}
                     >
                       See all experiments →
                     </button>
@@ -831,29 +760,34 @@
 
                   {allDone && (
                     <div className="mt-8 text-center animate-fadeIn">
-                      <Sparkle className="w-10 h-10 mx-auto mb-4" style={{ color: '#FE63D9', filter: 'drop-shadow(0 0 12px rgba(254,99,217,0.6))' }} />
+                      <div className="text-4xl mb-4">🎉</div>
                       <h3
-                        className="text-2xl mb-2"
+                        className="text-xl font-bold mb-2"
                         style={{
-                          fontFamily: "'Parafina-Medium', Georgia, serif",
-                          fontWeight: 500,
-                          color: '#F5F5F5'
+                          fontFamily: "'Playfair Display', Georgia, serif",
+                          color: 'white'
                         }}
                       >
                         You tried them all!
                       </h3>
-                      <p style={{ color: 'rgba(245,245,245,0.6)', fontStyle: 'italic' }}>
-                        Your special thing is playing.
+                      <p style={{ color: 'rgba(255,255,255,0.6)' }}>
+                        You're officially a Brilliant Mother
                       </p>
                     </div>
                   )}
 
                   <footer className="mt-10 text-center">
-                    <p className="text-xs" style={{ color: 'rgba(245,245,245,0.3)', letterSpacing: '0.05em' }}>
+                    <p className="text-sm" style={{ color: 'rgba(255,255,255,0.3)' }}>
                       Crafted with care by{' '}
-                      <span style={{ color: 'rgba(254,99,217,0.7)' }}>
-                        Queen of Swords
-                      </span>
+                      <a
+                        href="https://brilliantfailures.xyz"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:opacity-70 transition-opacity"
+                        style={{ color: 'rgba(236,72,153,0.6)' }}
+                      >
+                        Brilliant Failures
+                      </a>
                     </p>
                   </footer>
                 </>
@@ -862,51 +796,47 @@
               {showAllCards && (
                 <div
                   className="fixed inset-0 z-50 overflow-y-auto"
-                  style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(8px)' }}
+                  style={{ background: 'rgba(10,10,26,0.9)', backdropFilter: 'blur(8px)' }}
                   onClick={() => setShowAllCards(false)}
                 >
                   <div className="min-h-screen px-4 py-8">
                     <div
-                      className="max-w-2xl mx-auto overflow-hidden"
+                      className="max-w-2xl mx-auto rounded-3xl overflow-hidden"
                       style={{
-                        borderRadius: '12px',
-                        background: 'linear-gradient(165deg, rgba(18,12,30,0.96) 0%, rgba(5,3,10,0.98) 100%)',
-                        boxShadow: '0 25px 50px rgba(0,0,0,0.7)',
-                        border: '1px solid rgba(245,245,245,0.15)'
+                        background: 'linear-gradient(165deg, rgba(30,30,50,0.95) 0%, rgba(20,20,40,0.98) 100%)',
+                        boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+                        border: '1px solid rgba(255,255,255,0.1)'
                       }}
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div
                         className="sticky top-0 z-10 p-5 flex items-center justify-between"
                         style={{
-                          background: 'rgba(8,5,15,0.95)',
-                          borderBottom: '1px solid rgba(245,245,245,0.1)',
+                          background: 'rgba(20,20,40,0.95)',
+                          borderBottom: '1px solid rgba(255,255,255,0.1)',
                           backdropFilter: 'blur(10px)'
                         }}
                       >
                         <div>
                           <h2
-                            className="text-2xl"
+                            className="text-xl font-bold"
                             style={{
-                              fontFamily: "'Parafina-Medium', Georgia, serif",
-                              fontWeight: 500,
-                              color: '#F5F5F5'
+                              fontFamily: "'Playfair Display', Georgia, serif",
+                              color: 'white'
                             }}
                           >
                             All Experiments
                           </h2>
-                          <p className="text-xs uppercase mt-1" style={{ color: 'rgba(245,245,245,0.45)', letterSpacing: '0.15em' }}>
+                          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
                             {completed.size} of {experiments.length} completed
                           </p>
                         </div>
                         <button
                           onClick={() => setShowAllCards(false)}
-                          className="w-10 h-10 flex items-center justify-center transition-colors"
+                          className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
                           style={{
-                            borderRadius: '2px',
-                            background: 'rgba(245,245,245,0.08)',
-                            border: '1px solid rgba(245,245,245,0.15)',
-                            color: '#F5F5F5'
+                            background: 'rgba(255,255,255,0.1)',
+                            color: 'white'
                           }}
                         >
                           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -926,23 +856,22 @@
                                 setShowAllCards(false);
                                 setShowStamp(false);
                               }}
-                              className={`w-full text-left p-4 transition-all hover:scale-[1.01] active:scale-[0.99] ${isDone ? 'opacity-60' : ''}`}
+                              className={`w-full text-left p-4 rounded-2xl transition-all hover:scale-[1.01] active:scale-[0.99] ${isDone ? 'opacity-60' : ''}`}
                               style={{
-                                borderRadius: '4px',
                                 background: experiment.special
-                                  ? 'rgba(254,99,217,0.08)'
-                                  : 'rgba(245,245,245,0.04)',
+                                  ? 'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(168,85,247,0.15))'
+                                  : 'rgba(255,255,255,0.05)',
                                 border: experiment.special
-                                  ? '1px solid rgba(254,99,217,0.35)'
-                                  : '1px solid rgba(245,245,245,0.1)'
+                                  ? '1px solid rgba(236,72,153,0.3)'
+                                  : '1px solid rgba(255,255,255,0.1)'
                               }}
                             >
                               <div className="flex items-start gap-3">
                                 <div
                                   className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5"
                                   style={{
-                                    borderColor: isDone ? '#EF4C31' : 'rgba(245,245,245,0.2)',
-                                    background: isDone ? '#EF4C31' : 'transparent'
+                                    borderColor: isDone ? '#fbbf24' : 'rgba(255,255,255,0.2)',
+                                    background: isDone ? 'linear-gradient(135deg, #f59e0b, #fbbf24)' : 'transparent'
                                   }}
                                 >
                                   {isDone && (
@@ -956,15 +885,15 @@
                                   <div className="flex items-center gap-2">
                                     <span
                                       className="text-xs"
-                                      style={{ color: experiment.special ? '#FE63D9' : 'rgba(245,245,245,0.4)' }}
+                                      style={{ color: experiment.special ? '#f472b6' : 'rgba(255,255,255,0.4)' }}
                                     >
                                       {experiment.special ? '✦' : `${experiment.id}.`}
                                     </span>
                                     <h3
-                                      className="font-medium truncate"
+                                      className="font-semibold truncate"
                                       style={{
-                                        fontFamily: "'DM Mono', monospace",
-                                        color: '#F5F5F5'
+                                        fontFamily: "'DM Sans', sans-serif",
+                                        color: 'white'
                                       }}
                                     >
                                       {experiment.title}
@@ -972,7 +901,7 @@
                                   </div>
                                   <p
                                     className="text-sm mt-1 line-clamp-2"
-                                    style={{ color: 'rgba(245,245,245,0.5)' }}
+                                    style={{ color: 'rgba(255,255,255,0.5)' }}
                                   >
                                     {experiment.description}
                                   </p>
@@ -991,7 +920,7 @@
         }
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<QueenOfSwordsDeck />);
+        root.render(<BrilliantMothersDisco />);
     </script>
 </body>
 </html>
